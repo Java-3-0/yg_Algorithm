@@ -7,4 +7,5 @@ out/
 *.project
 *.settings
 *.DS_Store
-
+Main/
+Solution/
