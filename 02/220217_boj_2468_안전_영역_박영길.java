@@ -18,6 +18,7 @@ public class Main {
     static int res;
     static int[] dx = {-1, 1, 0 ,0};
     static int[] dy = {0, 0, -1, 1};
+    static int cnt;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,22 +30,27 @@ public class Main {
             st = new StringTokenizer(br.readLine(), " ");
             for (int j = 0; j < N; j++) {
                 // 살아남으면 true
-                isSelected[i][j] = (Integer.parseInt(st.nextToken()) - N >= 0)? true: false;
+                isSelected[i][j] = (Integer.parseInt(st.nextToken()) - N > 0)? true: false;
             }
         }
 
         res = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                bfs(0,0);
+                bfs(i,j);
             }
         }
 
+        System.out.println(cnt);
 
     }
 
 
     static void bfs(int r, int c) {
+        if(!isSelected[r][c])
+            return;
+
+
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{r,c});
         isSelected[r][c] = false;
@@ -67,8 +73,7 @@ public class Main {
                 }
             }
         }
-
-
+        cnt ++;
     }
 
 
