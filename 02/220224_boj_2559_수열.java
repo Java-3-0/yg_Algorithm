@@ -1,7 +1,7 @@
 /**
  *  220224_boj_2559_수열.java
- *  시간   :  ms
- *  메모리 :  ,KB
+ *  시간   :  1292ms
+ *  메모리 :  22,180KB
  */
 
 
@@ -36,11 +36,11 @@ public class Main {
             }
         }
 
-        int max = 0;
+        int answer = Integer.MIN_VALUE;
         for (int num : res) {
-            max = Math.max(num, max);
+            answer = Math.max(num, answer);
         }
-        System.out.println(max);
+        System.out.println(answer);
 
 
     }
