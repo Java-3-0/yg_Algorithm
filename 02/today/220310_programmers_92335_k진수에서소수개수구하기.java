@@ -9,24 +9,24 @@ class Solution {
         }
         sb.insert(0,n);
         String change = sb.toString();
-        int tmp = 0;
+        long tmp = 0L;
         for(int i=0; i<change.length(); i++){
             if(change.charAt(i)=='0'){
-                if(tmp != 0 && isPrime(tmp)){
+                if(tmp != 0L && isPrime(tmp)){
                     ++answer;
                 }
-                tmp = 0;
+                tmp = 0L;
             }else{
                 tmp = tmp*10 + change.charAt(i)-'0';
             }
         }
-        if(tmp%10 != 0 && isPrime(tmp))
+        if(tmp%10 != 0L && isPrime(tmp))
             answer++;
 
         return answer;
     }
-    
-    boolean isPrime(int num){
+
+    boolean isPrime(long num){
         if(num == 1)
             return false;
         int maxNum = (int)Math.sqrt(num);
@@ -34,8 +34,9 @@ class Solution {
             if(num % i == 0){
                 return false;
             }
-            
+
         }
         return true;
     }
 }
+
