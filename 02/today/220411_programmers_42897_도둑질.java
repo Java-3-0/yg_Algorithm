@@ -9,12 +9,8 @@ class Solution {
         dp[0][2] = Math.max(money[1], money[2]);
         dp[1][0] = money[0];
         dp[1][2] = money[0] + money[2];
-        if(money.length == 1)
-            return dp[1][0];
-        else if(money.length == 2)
-            return Math.max(money[0], money[1]);
-        else if(money.length == 3)
-            return Math.max(dp[0][2], dp[1][2]);
+        if(money.length == 3)
+            return Math.max(Math.max(money[0], money[1]), money[2]);
         else{
             for(int i = 3; i < money.length; i++){
                 dp[0][i] = Math.max(dp[0][i-2], dp[0][i-3] + money[i]);
