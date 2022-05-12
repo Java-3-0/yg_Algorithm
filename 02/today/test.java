@@ -43,9 +43,7 @@ public class Boj_16724_피리부는사나이 {
             int nx = x + dir[0];
             int ny = y + dir[1];
 
-            // 다음 위치 범위 내 여부 판단
-            if(nx < 0 || nx >= N || ny < 0 || ny >= M || arr[nx][ny] == cnt) {
-                cnt++;
+            if(arr[nx][ny] == cnt){
                 break;
             }
             x = nx;
