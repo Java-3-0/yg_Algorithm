@@ -1,49 +1,75 @@
-import java.io.*;
+package boj;
+
 import java.util.*;
+import java.io.*;
 
-public class Main {
-    static int N, C;
-    static int[] arr;
-
+public class Boj_16724_피리부는사나이 {
+    static int N, M;
+    static int[][] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        C = Integer.parseInt(st.nextToken());
-        arr = new int[N];
-        for (int i = 0; i < N; i++)
-            arr[i] = Integer.parseInt(br.readLine());
-
-        // 이분탐색을 위한 정렬
-        Arrays.sort(arr);
-
-        int start = 1;  // 최소 거리
-        int end = arr[N-1] - arr[0];    // 최대 거리
-
-        int res = 0;
-
-        while(start <= end){
-            int mid = (start + end) / 2;
-            int house = arr[0]; // 집
-            int cnt = 1;    // 초기 거리
-            // 공유기 설치
-            for (int i = 1; i < N; i++) {
-                if (arr[i] >= house + mid) {
-                    house = arr[i];
-                    cnt++;
-                }
+        M = Integer.parseInt(st.nextToken());
+        arr = new int[N][M];
+        for (int i = 0; i < N; i++) {
+            String s = br.readLine();
+            for (int j = 0; j < M; j++) {
+                arr[i][j] = s.charAt(j);
             }
-
-            // C개 이상의 공유기를 설치하면, 거리 증가
-            if (cnt >= C) {
-                start = mid + 1;
-                res = mid;
-            } else {    // 없으면 거리 감소
-                end = mid -1;
-            }
-
         }
-        System.out.println(res);
 
+        int cnt = 1;
+        // 번호 매기기
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                run(i, j, cnt);
+            }
+        }
+
+        System.out.println(--cnt);
+    }
+    static void run(int i, int j, int cnt) {
+        if(arr[i][j] != 'U' && arr[i][j] != 'D' && arr[i][j] != 'L' && arr[i][j] != 'R')
+            return;
+
+        int x = i;
+        int y = j;
+
+        while (true) {
+            int dir[] = selectNext(arr[x][y]);
+            // 현재 위치를 숫자로 변환
+            arr[x][y] = cnt;
+            int nx = x + dir[0];
+            int ny = y + dir[1];
+
+            // 다음 위치 범위 내 여부 판단
+            if(nx < 0 || nx >= N || ny < 0 || ny >= M || arr[nx][ny] == cnt) {
+                System.out.println("!!!!!!!!!");
+                for (int[] line: arr ) {
+                    for (int k = 0; k < line.length; k++) {
+                        System.out.print(line[k]+ " ");
+                    }
+                    System.out.println();
+                }
+                cnt++;
+                break;
+            }
+
+            // 다음 위치 숫자로 변경하기
+            x = nx;
+            y = ny;
+        }
+    }
+    static int[] selectNext(int now){
+        if(now == 'U')
+            return new int[]{-1,0};
+        else if(now == 'D')
+            return new int[]{1,0};
+        else if(now == 'L')
+            return new int[]{0,-1};
+        else
+            return new int[]{0,1};
     }
 }
+
